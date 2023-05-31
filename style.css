@@ -1,0 +1,148 @@
+:root {
+    --spieler-farbe: #00cc36;
+    --gegner-farbe: #d00a0a;
+  }
+  
+  * {
+    font-family: "Arial", "Helvetica", sans-serif;
+  }
+
+  .spieler_klasse {
+    color: var(--spieler-farbe);
+  }
+  
+  body {
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(1rem, 10vh, 4rem);
+    /* clamp(minimum, bevorzugt, maximum) */
+  }
+  .overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(1rem, 2vh,4rem);
+    opacity: 0;
+    pointer-events: none;
+    color: white;
+  }
+
+  .overlay.sichtbar{
+    opacity: 1;
+    pointer-events: all;
+    transition: opacity 1.5s;
+  }
+
+  .spielanzeige,
+  .overlay-text {
+    font-size: clamp(2rem, 10vh, 4rem);
+    font-weight: 900;
+    text-align: center;
+  }
+
+  .overlay-button {
+    font-size: 2rem;
+    font-weight: 600;
+    background-color: chartreuse;
+    border: none;
+    padding: 0.5em 1em;
+    border-radius: 2rem/50%;
+    cursor: pointer;
+  }
+  .overlay-button:hover{
+    background-color: rgb(67, 134, 0);
+    color: white;
+  }
+  
+  .spielfeld {
+    width: 1000px;
+    aspect-ratio: 1 / 1;
+    max-width: 90%;
+    max-height: 50vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  
+  .feld {
+    background-color: transparent;
+    border: 0.2rem solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5%;
+    aspect-ratio: 1 / 1;
+  }
+  
+  .feld:nth-child(-n + 3) {
+    border-top: none;
+  }
+  
+  .feld:nth-child(3n + 3) {
+    border-right: none;
+  } 
+  
+    .feld:nth-child(n + 7) {
+    border-bottom: none;
+  }
+  
+  .feld:nth-child(3n + 1) {
+    border-left: none;
+  }
+ 
+  .feld::before,
+  .feld::after {
+    content: "";
+    box-sizing: border-box;
+  } 
+  
+  .feld.spieler::before,
+  .spielanzeige.spieler ~ .spielfeld .feld:not([disabled]):hover::before {
+    border: 1rem solid var(--spieler-farbe);
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+  }
+  .spielanzeige.spieler ~ .spielfeld .feld:not([disabled]):hover::before {
+    opacity: 0.3;
+  }
+
+  .feld.gegner::before,
+  .feld.gegner::after {
+    background-color: var(--gegner-farbe);
+    width: 1rem;
+    height: 100%;
+  }
+
+  .feld.gegner::before {
+    transform: translateX(50%) rotate(45deg);
+  }
+
+  .feld.gegner::after {
+    transform: translateX(-50%) rotate(-45deg);
+  }
+
+.spielanzeige.spieler{
+    color: var(--spieler-farbe);
+}
+
+.spielanzeige.gegner{
+    color: var(--gegner-farbe);
+}
+
+.feld:not([disabled]) {
+    cursor: pointer;
+}
+
+
+
+
+
+
